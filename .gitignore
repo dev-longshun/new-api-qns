@@ -36,3 +36,4 @@ data/
 .gocache-temp
 .gopath
 .github/workflows.disabled/
+docs/private/
