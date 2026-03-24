@@ -124,3 +124,4 @@ jobs:
             ${IMAGE}:${VERSION}-amd64 \
             ${IMAGE}:${VERSION}-arm64
           docker manifest push ${IMAGE}:${ALIAS}
+          
