@@ -5,7 +5,7 @@ import ContentCard from '../components/ContentCard';
 const IntroPage = ({ serverAddress }) => {
   const { t } = useTranslation();
   const groups = [
-    { name: t('hp_intro_g1_name'), badge: t('hp_intro_g1_badge'), badgeColor: 'gold', rate: t('hp_intro_g1_rate'), rateColor: 'gold', desc: t('hp_intro_g1_desc'), featured: true },
+    { name: t('hp_intro_g1_name'), badge: t('hp_intro_g1_badge'), badgeColor: 'green', rate: t('hp_intro_g1_rate'), rateColor: 'green', desc: t('hp_intro_g1_desc'), featured: true },
   ];
 
   return (
