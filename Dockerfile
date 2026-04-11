@@ -3,6 +3,7 @@ FROM oven/bun:latest AS builder
 WORKDIR /build
 COPY web/package.json .
 COPY web/bun.lock .
+RUN echo '[install]\nregistry = "https://registry.npmjs.org/"' > bunfig.toml
 RUN --mount=type=cache,target=/root/.bun/install/cache \
     bun install
 COPY ./web .
