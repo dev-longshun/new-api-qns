@@ -1,184 +1,151 @@
 /* ============================================
-   Landing Page — Deep Blue/Purple Tech Theme
+   Landing Page — Clean Professional Theme
    ============================================ */
 
 .ld-root {
-  --ld-bg: #0a0e27;
-  --ld-bg-deep: #060920;
-  --ld-bg-card: rgba(255, 255, 255, 0.04);
-  --ld-bg-card-hover: rgba(255, 255, 255, 0.08);
-  --ld-accent: #00d4ff;
-  --ld-accent2: #7c3aed;
-  --ld-text: #b0b8d0;
-  --ld-text-muted: #5a6380;
-  --ld-text-strong: #ffffff;
-  --ld-border: rgba(255, 255, 255, 0.08);
-  --ld-border-hover: rgba(0, 212, 255, 0.25);
-  --ld-glow: rgba(0, 212, 255, 0.15);
-  --ld-max-w: 1200px;
+  --ld-bg: #ffffff;
+  --ld-bg-alt: #fafafa;
+  --ld-accent: #00A67E;
+  --ld-accent-hover: #008f6c;
+  --ld-text: #0a0a0a;
+  --ld-text-secondary: #666666;
+  --ld-text-muted: #999999;
+  --ld-border: #e5e5e5;
+  --ld-max-w: 1120px;
 
-  background: linear-gradient(165deg, var(--ld-bg) 0%, #0f0a2a 40%, #1a0a2e 100%);
-  color: var(--ld-text);
+  background: var(--ld-bg);
+  color: var(--ld-text-secondary);
   min-height: 100vh;
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  position: relative;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* --- Ambient glow orbs --- */
-.ld-root::before,
-.ld-root::after {
-  content: '';
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(120px);
-  z-index: 0;
-}
-.ld-root::before {
-  width: 600px; height: 600px;
-  top: -200px; right: -100px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.08), transparent 70%);
-}
-.ld-root::after {
-  width: 500px; height: 500px;
-  bottom: 20%; left: -150px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent 70%);
-}
-
-.ld-root > * { position: relative; z-index: 1; }
-
-/* --- Scroll fade animation --- */
+/* --- Scroll fade --- */
 .ld-fade {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.ld-fade.ld-visible { opacity: 1; transform: translateY(0); }
+.ld-fade.ld-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-/* --- Glass card --- */
-.ld-glass {
-  background: var(--ld-bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+/* --- Card --- */
+.ld-card {
+  background: var(--ld-bg);
   border: 1px solid var(--ld-border);
-  border-radius: 16px;
-  padding: 32px;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-.ld-glass:hover {
-  border-color: var(--ld-border-hover);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 40px var(--ld-glow);
-}
-
-/* --- Stat card (hero) --- */
-.ld-stat {
-  text-align: center;
-  padding: 36px 24px;
-}
-.ld-stat-value {
-  font-size: 48px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--ld-accent), var(--ld-accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.1;
-  margin-bottom: 8px;
-}
-.ld-stat-label {
-  font-size: 14px;
-  color: var(--ld-text-muted);
-  font-weight: 500;
-}
-
-/* --- Feature icon --- */
-.ld-feat-icon {
-  width: 48px; height: 48px;
   border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(124, 58, 237, 0.12));
-  color: var(--ld-accent);
-  margin-bottom: 16px;
-  flex-shrink: 0;
+  padding: 32px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-/* --- Step number --- */
-.ld-step-num {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 700;
-  background: linear-gradient(135deg, var(--ld-accent), var(--ld-accent2));
-  color: #fff;
-  flex-shrink: 0;
+.ld-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 /* --- Buttons --- */
 .ld-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 32px; border-radius: 12px;
-  font-size: 15px; font-weight: 600;
-  cursor: pointer; transition: all 0.25s;
-  text-decoration: none; letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
   border: none;
 }
 .ld-btn--primary {
-  background: linear-gradient(135deg, var(--ld-accent), var(--ld-accent2));
+  background: var(--ld-accent);
   color: #fff;
-  box-shadow: 0 4px 24px rgba(0, 212, 255, 0.25);
 }
 .ld-btn--primary:hover {
-  box-shadow: 0 6px 32px rgba(0, 212, 255, 0.4);
-  transform: translateY(-1px);
+  background: var(--ld-accent-hover);
 }
-.ld-btn--ghost {
+.ld-btn--secondary {
   background: transparent;
   color: var(--ld-text);
   border: 1px solid var(--ld-border);
 }
-.ld-btn--ghost:hover {
-  border-color: var(--ld-border-hover);
-  color: var(--ld-text-strong);
+.ld-btn--secondary:hover {
+  border-color: #ccc;
 }
 
-/* --- Pricing highlight --- */
-.ld-price {
-  font-size: 64px; font-weight: 800;
+/* --- Step number --- */
+.ld-step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--ld-accent);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* --- Pricing --- */
+.ld-price-section {
+  background: var(--ld-bg-alt);
+}
+.ld-price-value {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--ld-accent);
   letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--ld-accent), #a78bfa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  line-height: 1;
 }
 .ld-price-old {
   text-decoration: line-through;
   color: var(--ld-text-muted);
-  font-size: 18px;
+  font-size: 16px;
+}
+
+/* --- Stat --- */
+.ld-stat-value {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--ld-text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.ld-stat-label {
+  font-size: 14px;
+  color: var(--ld-text-muted);
 }
 
 /* --- Section label --- */
 .ld-label {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--ld-accent);
+  font-size: 13px;
   font-weight: 600;
+  color: var(--ld-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* --- Divider --- */
+.ld-divider {
+  border: none;
+  border-top: 1px solid var(--ld-border);
+  margin: 0;
 }
 
 /* --- Reduced Motion --- */
 @media (prefers-reduced-motion: reduce) {
   .ld-fade { opacity: 1; transform: none; transition: none; }
-  .ld-glass { transition: none; }
+  .ld-card { transition: none; }
 }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-  .ld-stat-value { font-size: 36px; }
-  .ld-glass { padding: 24px; }
-  .ld-price { font-size: 48px; }
-  .ld-root::before, .ld-root::after { display: none; }
+  .ld-stat-value { font-size: 32px; }
+  .ld-price-value { font-size: 40px; }
+  .ld-card { padding: 24px; }
 }
