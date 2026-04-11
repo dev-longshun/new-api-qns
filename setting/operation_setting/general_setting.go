@@ -20,6 +20,10 @@ type GeneralSetting struct {
 	CustomCurrencySymbol string `json:"custom_currency_symbol"`
 	// 自定义货币与美元汇率（1 USD = X Custom）
 	CustomCurrencyExchangeRate float64 `json:"custom_currency_exchange_rate"`
+	// 联系二维码图片链接
+	ContactQRCode string `json:"contact_qrcode"`
+	// 联系按钮文案（默认"微信售后群"）
+	ContactLabel string `json:"contact_label"`
 }
 
 // 默认配置

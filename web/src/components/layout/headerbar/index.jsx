@@ -41,6 +41,8 @@ const HeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
     isNewYear,
     isSelfUseMode,
     docsLink,
+    contactQRCode,
+    contactLabel,
     isDemoSiteMode,
     isConsoleRoute,
     theme,
@@ -119,6 +121,8 @@ const HeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
             isLoading={isLoading}
             isMobile={isMobile}
             isSelfUseMode={isSelfUseMode}
+            contactQRCode={contactQRCode}
+            contactLabel={contactLabel}
             logout={logout}
             navigate={navigate}
             t={t}

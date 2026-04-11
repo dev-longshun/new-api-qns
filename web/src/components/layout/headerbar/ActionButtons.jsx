@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
+import ContactButton from './ContactButton';
 import NewYearButton from './NewYearButton';
 import NotificationButton from './NotificationButton';
 import ThemeToggle from './ThemeToggle';
@@ -36,6 +37,8 @@ const ActionButtons = ({
   isLoading,
   isMobile,
   isSelfUseMode,
+  contactQRCode,
+  contactLabel,
   logout,
   navigate,
   t,
@@ -43,6 +46,13 @@ const ActionButtons = ({
   return (
     <div className='flex items-center gap-2 md:gap-3'>
       <NewYearButton isNewYear={isNewYear} />
+
+      <ContactButton
+        contactQRCode={contactQRCode}
+        contactLabel={contactLabel}
+        isMobile={isMobile}
+        t={t}
+      />
 
       <NotificationButton
         unreadCount={unreadCount}

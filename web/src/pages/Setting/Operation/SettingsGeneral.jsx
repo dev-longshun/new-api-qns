@@ -46,6 +46,8 @@ export default function GeneralSettings(props) {
   const [inputs, setInputs] = useState({
     TopUpLink: '',
     'general_setting.docs_link': '',
+    'general_setting.contact_qrcode': '',
+    'general_setting.contact_label': '',
     'general_setting.quota_display_type': 'USD',
     'general_setting.custom_currency_symbol': '¤',
     'general_setting.custom_currency_exchange_rate': '',
@@ -187,6 +189,26 @@ export default function GeneralSettings(props) {
                   initValue={''}
                   placeholder={t('例如 https://docs.newapi.pro')}
                   onChange={handleFieldChange('general_setting.docs_link')}
+                  showClear
+                />
+              </Col>
+              <Col xs={24} sm={12} md={8} lg={8} xl={8}>
+                <Form.Input
+                  field={'general_setting.contact_qrcode'}
+                  label={t('联系二维码图片地址')}
+                  initValue={''}
+                  placeholder={t('例如 https://example.com/qrcode.png')}
+                  onChange={handleFieldChange('general_setting.contact_qrcode')}
+                  showClear
+                />
+              </Col>
+              <Col xs={24} sm={12} md={8} lg={8} xl={8}>
+                <Form.Input
+                  field={'general_setting.contact_label'}
+                  label={t('联系按钮文案')}
+                  initValue={''}
+                  placeholder={t('例如 微信售后群')}
+                  onChange={handleFieldChange('general_setting.contact_label')}
                   showClear
                 />
               </Col>
