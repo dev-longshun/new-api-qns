@@ -2,6 +2,25 @@
    Landing Page — Clean Professional Theme
    ============================================ */
 
+/* --- Landing page active: override global backgrounds --- */
+[data-landing] body,
+[data-landing] .semi-layout {
+  background-color: #ffffff !important;
+}
+[data-landing] header {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+[data-landing] header,
+[data-landing] header * {
+  color: #0a0a0a;
+}
+[data-landing] header button,
+[data-landing] header a {
+  color: #0a0a0a;
+}
+
 .ld-root {
   --ld-bg: #ffffff;
   --ld-bg-alt: #fafafa;
@@ -21,15 +40,17 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- Scroll fade --- */
+/* --- Scroll fade (GPU accelerated) --- */
 .ld-fade {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(16px) translateZ(0);
   transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 .ld-fade.ld-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 /* --- Card --- */

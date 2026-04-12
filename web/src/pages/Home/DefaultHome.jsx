@@ -8,31 +8,9 @@ import TrustSection from './sections/TrustSection';
 
 const DefaultHome = () => {
   useEffect(() => {
-    const root = document.querySelector('.ld-root');
-    if (!root) return;
-
-    let scrollContainer = null;
-    let parent = root.parentElement;
-    while (parent) {
-      const style = getComputedStyle(parent);
-      const ov = style.overflow + style.overflowY;
-      if (ov.includes('auto') || ov.includes('scroll')) {
-        scrollContainer = parent;
-        break;
-      }
-      parent = parent.parentElement;
-    }
-
-    if (scrollContainer) {
-      scrollContainer.style.scrollBehavior = 'smooth';
-      scrollContainer.style.WebkitOverflowScrolling = 'touch';
-      scrollContainer.scrollTop = 0;
-    }
-
+    document.documentElement.setAttribute('data-landing', '');
     return () => {
-      if (scrollContainer) {
-        scrollContainer.style.scrollBehavior = '';
-      }
+      document.documentElement.removeAttribute('data-landing');
     };
   }, []);
 
