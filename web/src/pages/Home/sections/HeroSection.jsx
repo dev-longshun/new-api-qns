@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import { showSuccess } from '../../../helpers';
+import { useTranslation } from 'react-i18next';
 
 const MODELS = [
-  'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo',
-  'claude-3.5-sonnet', 'claude-3-opus', 'claude-3-haiku',
-  'gemini-1.5-pro', 'gemini-1.5-flash',
-  'deepseek-v3', 'deepseek-coder',
-  'qwen-max', 'qwen-plus',
+  'claude-opus-4.6', 'claude-sonnet-4.6', 'claude-opus-4.5',
+  'gpt-5.4', 'gpt-5.4-mini', 'gpt-5.3-codex',
+  'gemini-3.1-pro', 'gemini-3-flash', 'gemini-2.5-pro',
 ];
 
 const TOOLS = [
@@ -40,6 +40,7 @@ const Marquee = ({ items, label, className, speed = '22s' }) => (
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const pathRef = useRef(null);
   const agentRef = useRef(null);
@@ -53,7 +54,8 @@ const HeroSection = () => {
 
   const copyBaseUrl = useCallback(() => {
     navigator.clipboard.writeText('https://www.qnsapi.com');
-  }, []);
+    showSuccess(t('复制成功'));
+  }, [t]);
 
   return (
     <main className="hero" aria-label="首页主视觉">
@@ -63,9 +65,7 @@ const HeroSection = () => {
           <p className="hero-subtitle">企业级 AI 中转站</p>
           <div className="hero-actions" aria-label="快捷入口">
             <a className="hero-button hero-button-primary" href="/console" onClick={(e) => { e.preventDefault(); navigate('/console'); }}>快速接入</a>
-            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href="https://www.qnsapi.com/doc" target="_blank" rel="noreferrer">文档中心</a>
-            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href="https://status.qnsapi.com" target="_blank" rel="noreferrer">服务状态</a>
-            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href="https://www.qnsapi.com/contact" target="_blank" rel="noreferrer">联系我们</a>
+            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href={localStorage.getItem('docs_link') || 'https://www.qnsapi.com/doc'} target="_blank" rel="noreferrer">文档中心</a>
           </div>
 
           <Marquee items={MODELS} label="支持全球主流模型" className="model-support" speed="22s" />

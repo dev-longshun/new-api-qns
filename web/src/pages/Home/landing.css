@@ -345,8 +345,8 @@
 
 /* --- Pricing section --- */
 .pricing-section { padding: 28px 24px 88px; }
-.pricing-shell { width: min(100%, 1240px); margin: 0 auto; }
-.pricing-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+.pricing-shell { width: min(100%, 1240px); margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.pricing-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; text-align: center; width: 100%; }
 .pricing-title {
   margin: 0; font-size: clamp(32px, 4vw, 44px); line-height: 1.02;
   letter-spacing: -0.06em; font-weight: 700; color: var(--text);
