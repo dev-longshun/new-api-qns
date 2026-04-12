@@ -8,34 +8,28 @@ const PricingSection = () => {
   const navigate = useNavigate();
 
   return (
-    <section
-      id='pricing'
-      ref={ref}
-      className={clsx('ld-fade ld-price-section py-20 sm:py-24 px-6', isInView && 'ld-visible')}
-    >
-      <div className='mx-auto text-center' style={{ maxWidth: '560px' }}>
-        <p className='ld-label mb-3'>价格</p>
-        <h2
-          className='text-2xl sm:text-3xl font-bold mb-10'
-          style={{ color: 'var(--ld-text)', letterSpacing: '-0.02em' }}
-        >
-          简单透明，按量付费
-        </h2>
-
-        <div className='ld-card' style={{ padding: '48px 32px' }}>
-          <div className='mb-2'>
-            <span className='ld-price-old'>官方价 ¥7/刀</span>
-          </div>
-          <div className='mb-5'>
-            <span className='ld-price-value'>$0.5</span>
-            <span className='text-lg ml-1' style={{ color: 'var(--ld-text-muted)' }}>/刀</span>
-          </div>
-          <p className='text-sm mb-8' style={{ color: 'var(--ld-text-secondary)' }}>
-            用多少付多少 · 余额永不过期 · 全部模型可用
-          </p>
-          <button className='ld-btn ld-btn--primary' onClick={() => navigate('/console')}>
-            立即充值
-          </button>
+    <section className="pricing-section" ref={ref} id="pricing" aria-label="价格方案">
+      <div className="pricing-shell">
+        <div className={clsx('pricing-head scroll-reveal', isInView && 'is-visible')} style={{ '--reveal-delay': '0ms' }}>
+          <h2 className="pricing-title">价格方案</h2>
+        </div>
+        <div className="pricing-grid">
+          <article className={clsx('pricing-card scroll-reveal', isInView && 'is-visible')} style={{ '--reveal-delay': '70ms' }}>
+            <div className="pricing-card-head">
+              <h3 className="pricing-name">按量付费</h3>
+            </div>
+            <div className="pricing-old">官方价 ¥7/刀</div>
+            <div className="pricing-price-row">
+              <div className="pricing-price">$0.5</div>
+              <div className="pricing-price-unit">/刀</div>
+            </div>
+            <div className="pricing-brief">用多少付多少 · 余额永不过期 · 全部模型可用</div>
+            <div className="pricing-card-actions">
+              <button className="pricing-action-button" type="button" onClick={() => navigate('/console')}>
+                立即充值
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </section>

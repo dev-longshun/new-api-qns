@@ -1,57 +1,170 @@
-import React from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
-const STATS = [
-  { value: '< 100ms', label: '平均延迟' },
-  { value: '99.95%', label: '服务可用性' },
-  { value: '5,000+', label: '日活跃用户' },
+const MODELS = [
+  'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo',
+  'claude-3.5-sonnet', 'claude-3-opus', 'claude-3-haiku',
+  'gemini-1.5-pro', 'gemini-1.5-flash',
+  'deepseek-v3', 'deepseek-coder',
+  'qwen-max', 'qwen-plus',
 ];
+
+const TOOLS = [
+  'Claude Code', 'Codex', 'Gemini CLI', 'OpenCode', 'OpenClaw',
+  'Cursor', 'Cline', 'Roo Code', 'Aider', 'Cherry Studio', 'Continue',
+];
+
+const PATHS = ['v1', 'v1/chat/completions', 'v1/models', 'v1/embeddings'];
+const AGENTS = ['claude', 'cursor', 'aider', 'cline', 'codex'];
+
+const Marquee = ({ items, label, className, speed = '22s' }) => (
+  <div className={clsx('intro-reveal is-visible', className)} style={{ '--reveal-delay': '260ms' }}>
+    <div className={`${className}-label`}>{label}</div>
+    <div className={`${className.replace('-support', '-marquee')}`}>
+      <div
+        className={className.includes('model') ? 'model-list' : className.includes('tool') ? 'tool-list' : 'status-list'}
+        style={{ animationDuration: speed }}
+      >
+        {[0, 1].map((g) => (
+          <div key={g} className={className.includes('model') ? 'model-group' : 'tool-group'} aria-hidden={g > 0}>
+            {items.map((item) => (
+              <span key={`${g}-${item}`} className="tool-chip">{item}</span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
+  const pathRef = useRef(null);
+  const agentRef = useRef(null);
+
+  useEffect(() => { setVisible(true); }, []);
+
+  // Typewriter effect for path
+  useTypedLoop(pathRef, PATHS, 2000, 80);
+  // Typewriter effect for agent
+  useTypedLoop(agentRef, AGENTS, 2500, 100);
+
+  const copyBaseUrl = useCallback(() => {
+    navigator.clipboard.writeText('https://www.qnsapi.com');
+  }, []);
 
   return (
-    <section className='py-20 sm:py-28 px-6'>
-      <div className='mx-auto' style={{ maxWidth: 'var(--ld-max-w)' }}>
-        <div className='max-w-2xl mb-16'>
-          <h1
-            className='text-4xl sm:text-5xl font-bold mb-5'
-            style={{ color: 'var(--ld-text)', letterSpacing: '-0.03em', lineHeight: 1.15 }}
-          >
-            为你的 AI 应用
-            <br />
-            提供稳定可靠的 API
-          </h1>
-          <p
-            className='text-lg mb-8'
-            style={{ color: 'var(--ld-text-secondary)', lineHeight: 1.7 }}
-          >
-            企业级 AI API 中转服务。一个接口接入 OpenAI、Claude、Gemini 等主流模型，
-            端到端加密，零日志策略，按量付费。
-          </p>
-          <div className='flex flex-wrap gap-3'>
-            <button className='ld-btn ld-btn--primary' onClick={() => navigate('/console')}>
-              立即接入
-            </button>
-            <button className='ld-btn ld-btn--secondary' onClick={() => {
-              document.querySelector('#pricing')?.scrollIntoView({ behavior: 'smooth' });
-            }}>
-              查看价格
-            </button>
+    <main className="hero" aria-label="首页主视觉">
+      <div className="hero-shell">
+        <section className={clsx('hero-copy intro-reveal', visible && 'is-visible')} style={{ '--reveal-delay': '40ms' }}>
+          <h1 className="hero-title">Qns API</h1>
+          <p className="hero-subtitle">企业级 AI 中转站</p>
+          <div className="hero-actions" aria-label="快捷入口">
+            <a className="hero-button hero-button-primary" href="/console" onClick={(e) => { e.preventDefault(); navigate('/console'); }}>快速接入</a>
+            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href="https://www.qnsapi.com/doc" target="_blank" rel="noreferrer">文档中心</a>
+            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href="https://status.qnsapi.com" target="_blank" rel="noreferrer">服务状态</a>
+            <a className="hero-button hero-button-secondary hero-button-secondary-strong" href="https://www.qnsapi.com/contact" target="_blank" rel="noreferrer">联系我们</a>
           </div>
-        </div>
 
-        <div className='grid grid-cols-3 gap-8 pt-8' style={{ borderTop: '1px solid var(--ld-border)' }}>
-          {STATS.map((s, i) => (
-            <div key={i}>
-              <div className='ld-stat-value'>{s.value}</div>
-              <div className='ld-stat-label'>{s.label}</div>
+          <Marquee items={MODELS} label="支持全球主流模型" className="model-support" speed="22s" />
+          <Marquee items={TOOLS} label="丝滑接入 20+ 编程工具" className="tool-support" speed="22s" />
+        </section>
+
+        <div className={clsx('hero-aside intro-reveal', visible && 'is-visible')} style={{ '--reveal-delay': '150ms' }}>
+          <section className="access-panel" aria-label="基础链接">
+            <div className="access-panel-head">
+              <div className="panel-dots" aria-hidden="true">
+                <span className="panel-dot is-live" />
+                <span className="panel-dot" />
+                <span className="panel-dot" />
+              </div>
+              <div className="panel-kicker">qnsapi.sh</div>
             </div>
-          ))}
+            <div className="terminal-body" aria-label="基础链接与路径格式提示">
+              <div className="terminal-line terminal-comment"># 替换基础链接</div>
+              <div className="terminal-line terminal-command">
+                <span className="terminal-prompt">$</span>
+                <span className="terminal-key">BASE_URL =</span>
+                <span className="terminal-scroll">
+                  <span className="terminal-value">
+                    <span>https://www.qnsapi.com</span>
+                    <span className="terminal-path" aria-hidden="true">
+                      <span className="path-slash">/</span>
+                      <span ref={pathRef}>v1</span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div className="terminal-line terminal-comment"># 替换 ApiKey</div>
+              <div className="terminal-line terminal-command">
+                <span className="terminal-prompt">$</span>
+                <span className="terminal-key">API_KEY =</span>
+                <span className="terminal-value">"******"</span>
+              </div>
+              <div className="terminal-line terminal-comment"># 启动 Agent</div>
+              <div className="terminal-line terminal-command terminal-command-agent">
+                <span className="terminal-prompt">$</span>
+                <span className="terminal-scroll">
+                  <span className="terminal-value">
+                    <span ref={agentRef}>claude</span>
+                    <span className="typed-cursor" />
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div className="terminal-panel-footer">
+              <div className="copy-row">
+                <button className="copy-button" type="button" onClick={copyBaseUrl}>复制基础链接</button>
+                <a className="copy-button copy-button-secondary" href="/console/token" onClick={(e) => { e.preventDefault(); navigate('/console/token'); }}>获取 ApiKey</a>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-    </section>
+    </main>
   );
 };
+
+function useTypedLoop(ref, words, pause = 2000, typeSpeed = 80) {
+  useEffect(() => {
+    if (!ref.current) return;
+    let idx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    let timer;
+
+    const tick = () => {
+      const el = ref.current;
+      if (!el) return;
+      const word = words[idx];
+
+      if (!deleting) {
+        charIdx++;
+        el.textContent = word.slice(0, charIdx);
+        if (charIdx === word.length) {
+          deleting = true;
+          timer = setTimeout(tick, pause);
+          return;
+        }
+        timer = setTimeout(tick, typeSpeed);
+      } else {
+        charIdx--;
+        el.textContent = word.slice(0, charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          idx = (idx + 1) % words.length;
+          timer = setTimeout(tick, typeSpeed * 2);
+          return;
+        }
+        timer = setTimeout(tick, typeSpeed / 2);
+      }
+    };
+
+    timer = setTimeout(tick, pause);
+    return () => clearTimeout(timer);
+  }, [ref, words, pause, typeSpeed]);
+}
 
 export default HeroSection;
