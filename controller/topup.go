@@ -184,13 +184,14 @@ func RequestEpay(c *gin.Context) {
 		amount = dAmount.Div(dQuotaPerUnit).IntPart()
 	}
 	topUp := &model.TopUp{
-		UserId:        id,
-		Amount:        amount,
-		Money:         payMoney,
-		TradeNo:       tradeNo,
-		PaymentMethod: req.PaymentMethod,
-		CreateTime:    time.Now().Unix(),
-		Status:        "pending",
+		UserId:          id,
+		Amount:          amount,
+		Money:           payMoney,
+		TradeNo:         tradeNo,
+		PaymentMethod:   req.PaymentMethod,
+		PaymentProvider: model.PaymentProviderEpay,
+		CreateTime:      time.Now().Unix(),
+		Status:          common.TopUpStatusPending,
 	}
 	err = topUp.Insert()
 	if err != nil {
@@ -287,8 +288,15 @@ func EpayNotify(c *gin.Context) {
 			log.Printf("易支付回调未找到订单: %v", verifyInfo)
 			return
 		}
-		if topUp.Status == "pending" {
-			topUp.Status = "success"
+		if topUp.PaymentProvider != model.PaymentProviderEpay {
+			log.Printf("易支付回调订单支付网关不匹配: trade_no=%s order_provider=%s callback_type=%s", verifyInfo.ServiceTradeNo, topUp.PaymentProvider, verifyInfo.Type)
+			return
+		}
+		if topUp.Status == common.TopUpStatusPending {
+			if topUp.PaymentMethod != verifyInfo.Type {
+				topUp.PaymentMethod = verifyInfo.Type
+			}
+			topUp.Status = common.TopUpStatusSuccess
 			err := topUp.Update()
 			if err != nil {
 				log.Printf("易支付回调更新订单失败: %v", topUp)
